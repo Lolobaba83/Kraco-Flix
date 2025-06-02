@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kraco Flix</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #141414;
+      color: #fff;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background-color: #e50914;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    header a.logo-link {
+      text-decoration: none;
+      color: white;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2em;
+      font-weight: bold;
+    }
+    .controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .controls input,
+    .controls select {
+      padding: 10px;
+      font-size: 1em;
+      border: none;
+      border-radius: 5px;
+    }
+    .trophies-link {
+      padding: 10px 15px;
+      background-color: white;
+      color: #e50914;
+      font-weight: bold;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+    .trophies-link:hover {
+      background-color: #ccc;
+    }
+    .banner {
+      position: relative;
+      height: 55vh;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .banner img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 150%;
+      object-fit: cover;
+      opacity: 0;
+      animation: fadeBanner 15s infinite;
+    }
+    .banner img:nth-child(1) {
+      animation-delay: 0s;
+    }
+    .banner img:nth-child(2) {
+      animation-delay: 5s;
+    }
+    .banner img:nth-child(3) {
+      animation-delay: 10s;
+    }
+    @keyframes fadeBanner {
+      0% { opacity: 0; }
+      5% { opacity: 1; }
+      30% { opacity: 1; }
+      35% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+    .banner-content {
+      position: absolute;
+      top: 50%;
+      left: 60px;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+    .banner-content h2 {
+      font-size: 3em;
+      margin-bottom: 10px;
+    }
+    .banner-content p {
+      font-size: 1.2em;
+      max-width: 600px;
+    }
+    .movies-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); /* Forcer 4 colonnes */
+      gap: 20px;
+      padding: 40px;
+      flex-grow: 1;
+    }
+    .movie {
+      background-color: #222;
+      border-radius: 5px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .movie:hover {
+      transform: scale(1.08);
+    }
+    .movie img {
+      width: 100%;
+      display: block;
+    }
+    .movie-title {
+      padding: 10px;
+      text-align: center;
+    }
+    #videoPlayer {
+      text-align: center;
+      padding: 40px;
+      background-color: #111;
+    }
+    video {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      background: black;
+      display: block;
+      margin: 0 auto;
+    }
+    #closeBtn {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #e50914;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+      display: inline-block;
+    }
+    footer {
+      background-color: #111;
+      color: #aaa;
+      text-align: center;
+      padding: 20px;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 10;
+    }
+    footer a button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #e50914;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="logo-link"><h1>Kraco Flix</h1></a>
+    <div class="controls">
+      <input type="text" id="searchInput" placeholder="Rechercher..." />
+      <select id="genreFilter">
+        <option value="all">Tous les genres</option>
+        <option value="action">Action</option>
+        <option value="comedy">Comédie</option>
+        <option value="drama">Drame</option>
+        <option value="other">Autre</option>
+      </select>
+      <a href="Sous-dossier/Autres-pages/trophees.html" class="trophies-link">Trophées</a>
+    </div>
+  </header>
+
+  <div class="banner">
+    <img src="Sous-dossier/Images/bannier1.jpg" alt="Bannière 1">
+    <img src="Sous-dossier/Images/bannier2.jpg" alt="Bannière 2">
+    <img src="Sous-dossier/Images/bannier3.jpg" alt="Bannière 3">
+    <div class="banner-content">
+      <h2>Bienvenue sur Kraco Flix</h2>
+      <p>Découvrez tous les court-métrages créés par Kraco Dingo Corp.</p>
+    </div>
+  </div>
+
+  <div class="movies-grid" id="moviesGrid">
+    <div class="movie" data-title="Bande annonce Cin'Edison 2025" data-genre="comedy" data-video="Sous-dossier/Vidéos/video1.mp4">
+      <img src="Sous-dossier/Images/image1.png" alt="Bande annonce Cin'Edison 2025">
+      <div class="movie-title">Bande annonce Cin'Edison 2025</div>
+    </div>
+    <div class="movie" data-title="Le Suédois 2" data-genre="comedy" data-video="Sous-dossier/Vidéos/video2.mp4">
+      <img src="Sous-dossier/Images/image2.png" alt="Le Suédois 2">
+      <div class="movie-title">Le Suédois 2</div>
+    </div>
+    <div class="movie" data-title="Poker Face" data-genre="comedy" data-video="Sous-dossier/Vidéos/video3.mp4">
+      <img src="Sous-dossier/Images/image3.png" alt="Poker Face">
+      <div class="movie-title">Poker Face</div>
+    </div>
+    <div class="movie" data-title="Poker night" data-genre="action" data-video="Sous-dossier/Vidéos/video4.mov">
+      <img src="Sous-dossier/Images/image4.png" alt="Poker night">
+      <div class="movie-title">Poker night</div>
+    </div>
+    <div class="movie" data-title="Simplement lui" data-genre="comedy" data-video="Sous-dossier/Vidéos/video5.mp4">
+      <img src="Sous-dossier/Images/image5.png" alt="Simplement lui">
+      <div class="movie-title">Simplement lui</div>
+    </div>
+    <div class="movie" data-title="L'oeil du réalisateur" data-genre="drama" data-video="Sous-dossier/Vidéos/video6.mp4">
+      <img src="Sous-dossier/Images/image6.png" alt="L'oeil du réalisateur">
+      <div class="movie-title">L'oeil du réalisateur</div>
+    </div>
+    <div class="movie" data-title="2 Automnes 3 Hivers" data-genre="action" data-video="Sous-dossier/Vidéos/video7.mp4">
+      <img src="Sous-dossier/Images/image7.png" alt="2 Automnes 3 Hivers">
+      <div class="movie-title">2 Automnes 3 Hivers</div>
+    </div>
+    <div class="movie" data-title="Protector 3000" data-genre="comedy" data-video="Sous-dossier/Vidéos/video8.mp4">
+      <img src="Sous-dossier/Images/image8.png" alt="Protector 3000">
+      <div class="movie-title">Protector 3000</div>
+    </div>
+    <div class="movie" data-title="Pouvoirs en perdition" data-genre="action" data-video="Sous-dossier/Vidéos/video9.mp4">
+      <img src="Sous-dossier/Images/image9.png" alt="Pouvoirs en perdition">
+      <div class="movie-title">Pouvoirs en perdition</div>
+    </div>
+    <div class="movie" data-title="Retour vers le turfu" data-genre="comedy" data-video="Sous-dossier/Vidéos/video10.mp4">
+      <img src="Sous-dossier/Images/image10.png" alt="Retour vers le turfu">
+      <div class="movie-title">Retour vers le turfu</div>
+    </div>
+    <div class="movie" data-title="Final Glimps" data-genre="comedy" data-video="Sous-dossier/Vidéos/video11.mp4">
+      <img src="Sous-dossier/Images/image11.png" alt="Final Glimpse">
+      <div class="movie-title">Final Glimps</div>
+    </div>
+    <div class="movie" data-title="La première fois que j'ai rencontré Chriss" data-genre="drama" data-video="Sous-dossier/Vidéos/video12.mp4">
+      <img src="Sous-dossier/Images/image12.png" alt="La première fois que j'ai rencontré Chriss">
+      <div class="movie-title">La première fois que j'ai rencontré Chriss</div>
+    </div>
+    <div class="movie" data-title="La tablette ténébreuse" data-genre="drama" data-video="Sous-dossier/Vidéos/video13.mp4">
+      <img src="Sous-dossier/Images/image13.png" alt="La tablette ténébreuse">
+      <div class="movie-title">La tablette ténébreuse</div>
+    </div>
+    <div class="movie" data-title="THE DREAM" data-genre="drama" data-video="Sous-dossier/Vidéos/video14.mp4">
+      <img src="Sous-dossier/Images/image14.png" alt="THE DREAM">
+      <div class="movie-title">THE DREAM</div>
+    </div>
+	<div class="movie" data-title="Kraco Dingo News" data-genre="drama" data-video="Sous-dossier/Vidéos/video15.mov">
+      <img src="Sous-dossier/Images/image15.png" alt="Kraco Dingo News">
+      <div class="movie-title">Kraco Dingo News</div>
+    </div>
+	<div class="movie" data-title="Qu'est-ce que la violence" data-genre="drama" data-video="Sous-dossier/Vidéos/video16.mov">
+      <img src="Sous-dossier/Images/image16.png" alt="Qu'est-ce que la violence">
+      <div class="movie-title">Qu'est-ce que la violence</div>
+    </div>
+  </div>
+
+  <div id="videoPlayer" style="display:none;">
+    <h2 id="videoTitle"></h2>
+    <video id="video" controls>
+      <source id="videoSource" src="" type="video/mp4">
+      Votre navigateur ne supporte pas la vidéo HTML5.
+    </video>
+    <button id="closeBtn">Fermer</button>
+  </div>
+
+  <footer>
+    <p>© 2025 Kraco Flix — Tous droits réservés<br>Site créé par Loan Barabes</p>
+    <a href="Sous-dossier/Autres-pages/stream.html" style="text-decoration: none;">
+      <button>
+        Accéder à Kraco Stream
+      </button>
+    </a>
+  </footer>
+
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const genreFilter = document.getElementById('genreFilter');
+    const movies = document.querySelectorAll('.movie');
+    const videoPlayer = document.getElementById('videoPlayer');
+    const video = document.getElementById('video');
+    const videoSource = document.getElementById('videoSource');
+    const videoTitle = document.getElementById('videoTitle');
+    const closeBtn = document.getElementById('closeBtn');
+
+    function filterMovies() {
+      const searchText = searchInput.value.toLowerCase();
+      const genre = genreFilter.value;
+      movies.forEach(movie => {
+        const title = movie.getAttribute('data-title').toLowerCase();
+        const movieGenre = movie.getAttribute('data-genre');
+        const matchesSearch = title.includes(searchText);
+        const matchesGenre = (genre === 'all') || (movieGenre === genre);
+        if (matchesSearch && matchesGenre) {
+          movie.style.display = 'block';
+        } else {
+          movie.style.display = 'none';
+        }
+      });
+    }
+
+    searchInput.addEventListener('input', filterMovies);
+    genreFilter.addEventListener('change', filterMovies);
+
+    movies.forEach(movie => {
+      movie.addEventListener('click', () => {
+        const videoSrc = movie.getAttribute('data-video');
+        const title = movie.getAttribute('data-title');
+        videoSource.src = videoSrc;
+        video.load();
+        videoTitle.textContent = title;
+        videoPlayer.style.display = 'block';
+        window.scrollTo({ top: videoPlayer.offsetTop, behavior: 'smooth' });
+      });
+    });
+
+    closeBtn.addEventListener('click', () => {
+      video.pause();
+      videoPlayer.style.display = 'none';
+      videoSource.src = '';
+      video.load();
+    });
+
+	 document.addEventListener('keydown', e => {
+    if (videoPlayer.style.display === 'block') {
+      switch (e.code) {
+        case 'Space':
+          e.preventDefault();
+          video.paused ? video.play() : video.pause();
+          break;
+        case 'ArrowRight':
+          video.currentTime = Math.min(video.duration, video.currentTime + 10);
+          break;
+        case 'ArrowLeft':
+          video.currentTime = Math.max(0, video.currentTime - 10);
+          break;
+        case 'KeyF':
+          if (!document.fullscreenElement) {
+            video.requestFullscreen().catch(err => console.error(err));
+          } else {
+            document.exitFullscreen();
+          }
+          break;
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
+ 
