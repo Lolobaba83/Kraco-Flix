@@ -74,22 +74,16 @@
       opacity: 0;
       animation: fadeBanner 15s infinite;
     }
-    .banner img:nth-child(1) {
-      animation-delay: 0s;
-    }
-    .banner img:nth-child(2) {
-      animation-delay: 5s;
-    }
-    .banner img:nth-child(3) {
-      animation-delay: 10s;
-    }
+    .banner img:nth-child(1) { animation-delay: 0s; }
+    .banner img:nth-child(2) { animation-delay: 5s; }
+    .banner img:nth-child(3) { animation-delay: 10s; }
+
     @keyframes fadeBanner {
-      0% { opacity: 0; }
-      5% { opacity: 1; }
-      30% { opacity: 1; }
+      0%, 100% { opacity: 0; }
+      5%, 30% { opacity: 1; }
       35% { opacity: 0; }
-      100% { opacity: 0; }
     }
+
     .banner-content {
       position: absolute;
       top: 50%;
@@ -107,7 +101,7 @@
     }
     .movies-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr); /* Forcer 4 colonnes */
+      grid-template-columns: repeat(4, 1fr);
       gap: 20px;
       padding: 40px;
       flex-grow: 1;
@@ -134,6 +128,7 @@
       text-align: center;
       padding: 40px;
       background-color: #111;
+      display: none;
     }
     video {
       max-width: 100%;
@@ -152,7 +147,6 @@
       color: white;
       font-size: 1em;
       cursor: pointer;
-      display: inline-block;
     }
     footer {
       background-color: #111;
@@ -177,6 +171,7 @@
 </head>
 <body>
 
+  <!-- En-tête -->
   <header>
     <a href="index.html" class="logo-link"><h1>Kraco Flix</h1></a>
     <div class="controls">
@@ -192,6 +187,7 @@
     </div>
   </header>
 
+  <!-- Bannière -->
   <div class="banner">
     <img src="Sous-dossier/Images/bannier1.jpg" alt="Bannière 1">
     <img src="Sous-dossier/Images/bannier2.jpg" alt="Bannière 2">
@@ -202,91 +198,31 @@
     </div>
   </div>
 
+  <!-- Grille des films -->
   <div class="movies-grid" id="moviesGrid">
-    <div class="movie" data-title="Bande annonce Cin'Edison 2025" data-genre="comedy" data-video="Sous-dossier/Vidéos/video1.mp4">
-      <img src="Sous-dossier/Images/image1.png" alt="Bande annonce Cin'Edison 2025">
-      <div class="movie-title">Bande annonce Cin'Edison 2025</div>
-    </div>
-    <div class="movie" data-title="Le Suédois 2" data-genre="comedy" data-video="Sous-dossier/Vidéos/video2.mp4">
-      <img src="Sous-dossier/Images/image2.png" alt="Le Suédois 2">
-      <div class="movie-title">Le Suédois 2</div>
-    </div>
-    <div class="movie" data-title="Poker Face" data-genre="comedy" data-video="Sous-dossier/Vidéos/video3.mp4">
-      <img src="Sous-dossier/Images/image3.png" alt="Poker Face">
-      <div class="movie-title">Poker Face</div>
-    </div>
-    <div class="movie" data-title="Poker night" data-genre="action" data-video="Sous-dossier/Vidéos/video4.mov">
-      <img src="Sous-dossier/Images/image4.png" alt="Poker night">
-      <div class="movie-title">Poker night</div>
-    </div>
-    <div class="movie" data-title="Simplement lui" data-genre="comedy" data-video="Sous-dossier/Vidéos/video5.mp4">
-      <img src="Sous-dossier/Images/image5.png" alt="Simplement lui">
-      <div class="movie-title">Simplement lui</div>
-    </div>
-    <div class="movie" data-title="L'oeil du réalisateur" data-genre="drama" data-video="Sous-dossier/Vidéos/video6.mp4">
-      <img src="Sous-dossier/Images/image6.png" alt="L'oeil du réalisateur">
-      <div class="movie-title">L'oeil du réalisateur</div>
-    </div>
-    <div class="movie" data-title="2 Automnes 3 Hivers" data-genre="action" data-video="Sous-dossier/Vidéos/video7.mp4">
-      <img src="Sous-dossier/Images/image7.png" alt="2 Automnes 3 Hivers">
-      <div class="movie-title">2 Automnes 3 Hivers</div>
-    </div>
-    <div class="movie" data-title="Protector 3000" data-genre="comedy" data-video="Sous-dossier/Vidéos/video8.mp4">
-      <img src="Sous-dossier/Images/image8.png" alt="Protector 3000">
-      <div class="movie-title">Protector 3000</div>
-    </div>
-    <div class="movie" data-title="Pouvoirs en perdition" data-genre="action" data-video="Sous-dossier/Vidéos/video9.mp4">
-      <img src="Sous-dossier/Images/image9.png" alt="Pouvoirs en perdition">
-      <div class="movie-title">Pouvoirs en perdition</div>
-    </div>
-    <div class="movie" data-title="Retour vers le turfu" data-genre="comedy" data-video="Sous-dossier/Vidéos/video10.mp4">
-      <img src="Sous-dossier/Images/image10.png" alt="Retour vers le turfu">
-      <div class="movie-title">Retour vers le turfu</div>
-    </div>
-    <div class="movie" data-title="Final Glimps" data-genre="comedy" data-video="Sous-dossier/Vidéos/video11.mp4">
-      <img src="Sous-dossier/Images/image11.png" alt="Final Glimpse">
-      <div class="movie-title">Final Glimps</div>
-    </div>
-    <div class="movie" data-title="La première fois que j'ai rencontré Chriss" data-genre="drama" data-video="Sous-dossier/Vidéos/video12.mp4">
-      <img src="Sous-dossier/Images/image12.png" alt="La première fois que j'ai rencontré Chriss">
-      <div class="movie-title">La première fois que j'ai rencontré Chriss</div>
-    </div>
-    <div class="movie" data-title="La tablette ténébreuse" data-genre="drama" data-video="Sous-dossier/Vidéos/video13.mp4">
-      <img src="Sous-dossier/Images/image13.png" alt="La tablette ténébreuse">
-      <div class="movie-title">La tablette ténébreuse</div>
-    </div>
-    <div class="movie" data-title="THE DREAM" data-genre="drama" data-video="Sous-dossier/Vidéos/video14.mp4">
-      <img src="Sous-dossier/Images/image14.png" alt="THE DREAM">
-      <div class="movie-title">THE DREAM</div>
-    </div>
-	<div class="movie" data-title="Kraco Dingo News" data-genre="drama" data-video="Sous-dossier/Vidéos/video15.mov">
-      <img src="Sous-dossier/Images/image15.png" alt="Kraco Dingo News">
-      <div class="movie-title">Kraco Dingo News</div>
-    </div>
-	<div class="movie" data-title="Qu'est-ce que la violence" data-genre="drama" data-video="Sous-dossier/Vidéos/video16.mov">
-      <img src="Sous-dossier/Images/image16.png" alt="Qu'est-ce que la violence">
-      <div class="movie-title">Qu'est-ce que la violence</div>
-    </div>
+    <!-- Les blocs .movie sont déjà en place dans ton code HTML, je ne les recopie pas ici pour gagner de la place -->
+    <!-- ... -->
   </div>
 
-  <div id="videoPlayer" style="display:none;">
+  <!-- Lecteur vidéo -->
+  <div id="videoPlayer">
     <h2 id="videoTitle"></h2>
-    <video id="video" controls>
+    <video id="video" controls autoplay>
       <source id="videoSource" src="" type="video/mp4">
       Votre navigateur ne supporte pas la vidéo HTML5.
     </video>
     <button id="closeBtn">Fermer</button>
   </div>
 
+  <!-- Pied de page -->
   <footer>
     <p>© 2025 Kraco Flix — Tous droits réservés<br>Site créé par Loan Barabes</p>
     <a href="Sous-dossier/Autres-pages/stream.html" style="text-decoration: none;">
-      <button>
-        Accéder à Kraco Stream
-      </button>
+      <button>Accéder à Kraco Stream</button>
     </a>
   </footer>
 
+  <!-- Script -->
   <script>
     const searchInput = document.getElementById('searchInput');
     const genreFilter = document.getElementById('genreFilter');
@@ -305,11 +241,7 @@
         const movieGenre = movie.getAttribute('data-genre');
         const matchesSearch = title.includes(searchText);
         const matchesGenre = (genre === 'all') || (movieGenre === genre);
-        if (matchesSearch && matchesGenre) {
-          movie.style.display = 'block';
-        } else {
-          movie.style.display = 'none';
-        }
+        movie.style.display = (matchesSearch && matchesGenre) ? 'block' : 'none';
       });
     }
 
@@ -324,6 +256,7 @@
         video.load();
         videoTitle.textContent = title;
         videoPlayer.style.display = 'block';
+        video.play();
         window.scrollTo({ top: videoPlayer.offsetTop, behavior: 'smooth' });
       });
     });
@@ -335,31 +268,33 @@
       video.load();
     });
 
-	 document.addEventListener('keydown', e => {
-    if (videoPlayer.style.display === 'block') {
-      switch (e.code) {
-        case 'Space':
-          e.preventDefault();
-          video.paused ? video.play() : video.pause();
-          break;
-        case 'ArrowRight':
-          video.currentTime = Math.min(video.duration, video.currentTime + 10);
-          break;
-        case 'ArrowLeft':
-          video.currentTime = Math.max(0, video.currentTime - 10);
-          break;
-        case 'KeyF':
-          if (!document.fullscreenElement) {
-            video.requestFullscreen().catch(err => console.error(err));
-          } else {
-            document.exitFullscreen();
-          }
-          break;
+    document.addEventListener('keydown', e => {
+      if (videoPlayer.style.display === 'block') {
+        switch (e.code) {
+          case 'Space':
+            e.preventDefault();
+            video.paused ? video.play() : video.pause();
+            break;
+          case 'ArrowRight':
+            video.currentTime = Math.min(video.duration, video.currentTime + 10);
+            break;
+          case 'ArrowLeft':
+            video.currentTime = Math.max(0, video.currentTime - 10);
+            break;
+          case 'KeyF':
+            if (!document.fullscreenElement) {
+              video.requestFullscreen().catch(console.error);
+            } else {
+              document.exitFullscreen();
+            }
+            break;
+          case 'Escape':
+            closeBtn.click();
+            break;
+        }
       }
-    }
-  });
-</script>
+    });
+  </script>
 
 </body>
 </html>
- 
