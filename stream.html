@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kraco Stream</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background-color: #000;
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+    }
+
+    header {
+      background-color: #e50914;
+      padding: 20px;
+      text-align: center;
+      font-size: 2em;
+      font-weight: bold;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .controls input,
+    .controls select {
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      font-size: 1em;
+    }
+
+    .film-section {
+      padding: 20px 40px;
+    }
+
+    .film-section h2 {
+      margin-bottom: 20px;
+      font-size: 1.8em;
+      color: #fff;
+    }
+
+    .film-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .film {
+      background-color: #141414;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .film:hover {
+      transform: scale(1.05);
+    }
+
+    .film img {
+      width: 100%;
+      display: block;
+    }
+
+    .film-title {
+      padding: 10px;
+      text-align: center;
+      font-size: 1.1em;
+    }
+
+    .video-player {
+      display: none;
+      padding: 40px;
+      text-align: center;
+    }
+
+    video {
+      width: 100%;
+      max-width: 900px;
+      border-radius: 10px;
+      background: #000;
+    }
+
+    .close-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1em;
+      border: none;
+      background-color: #e50914;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #111;
+      margin-top: 40px;
+    }
+
+    .back-btn {
+      margin-top: 10px;
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #e50914;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .back-btn:hover {
+      background-color: #ff1c1c;
+    }
+  </style>
+</head>
+<body>
+  <header>Kraco Stream</header>
+
+  <!-- Barre de recherche et filtre -->
+  <div class="controls">
+    <input type="text" id="searchInput" placeholder="Rechercher un film..." />
+    <select id="genreFilter">
+      <option value="all">Tous les genres</option>
+      <option value="comédie">Comédie</option>
+      <option value="drame">Drame</option>
+      <option value="thriller">Thriller</option>
+    </select>
+  </div>
+
+  <div class="film-section">
+    <h2>Films en streaming</h2>
+    <div class="film-grid" id="filmGrid">
+      <div class="film" data-title="Ali G" data-genre="comédie" data-video="../Vidéos/film1.mp4">
+        <img src="../Images/film1.jpg" alt="Ali G">
+        <div class="film-title">Ali G</div>
+      </div>
+      <div class="film" data-title="Bonnie and Clyde - Arthur Penn" data-genre="drame" data-video="../Vidéos/film2.mp4">
+        <img src="../Images/film2.jpg" alt="Bonnie and Clyde">
+        <div class="film-title">Bonnie and Clyde</div>
+      </div>
+      <div class="film" data-title="Psychose - Alfred Hitchcock" data-genre="thriller" data-video="../Vidéos/film3.mp4">
+        <img src="../images/film3.jpg" alt="Psychose">
+        <div class="film-title">Psychose</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-player" id="videoPlayer">
+    <h2 id="videoTitle"></h2>
+    <video id="video" controls>
+      <source id="videoSource" src="" type="video/mp4">
+      Votre navigateur ne prend pas en charge la vidéo HTML5.
+    </video>
+    <br>
+    <button class="close-btn" id="closeBtn">Fermer</button>
+  </div>
+
+  <footer>
+    <div>Tous droits réservés – Site créé par Loan Barabes</div>
+    <a href="../../index.html" class="back-btn">← Retour à Kraco Flix</a>
+  </footer>
+
+  <script>
+    const films = document.querySelectorAll('.film');
+    const videoPlayer = document.getElementById('videoPlayer');
+    const video = document.getElementById('video');
+    const videoSource = document.getElementById('videoSource');
+    const videoTitle = document.getElementById('videoTitle');
+    const closeBtn = document.getElementById('closeBtn');
+    const searchInput = document.getElementById('searchInput');
+    const genreFilter = document.getElementById('genreFilter');
+
+    // Afficher la vidéo quand on clique
+    films.forEach(film => {
+      film.addEventListener('click', () => {
+        const title = film.dataset.title;
+        const src = film.dataset.video;
+        videoTitle.textContent = title;
+        videoSource.src = src;
+        video.load();
+        videoPlayer.style.display = 'block';
+        window.scrollTo({ top: videoPlayer.offsetTop, behavior: 'smooth' });
+      });
+    });
+
+    closeBtn.addEventListener('click', () => {
+      video.pause();
+      videoPlayer.style.display = 'none';
+    });
+
+    // Filtrage
+    function filterFilms() {
+      const searchText = searchInput.value.toLowerCase();
+      const selectedGenre = genreFilter.value;
+
+      films.forEach(film => {
+        const title = film.dataset.title.toLowerCase();
+        const genre = film.dataset.genre;
+
+        const matchTitle = title.includes(searchText);
+        const matchGenre = selectedGenre === 'all' || genre === selectedGenre;
+
+        if (matchTitle && matchGenre) {
+          film.style.display = 'block';
+        } else {
+          film.style.display = 'none';
+        }
+      });
+    }
+
+    searchInput.addEventListener('input', filterFilms);
+    genreFilter.addEventListener('change', filterFilms);
+  </script>
+</body>
+</html>
